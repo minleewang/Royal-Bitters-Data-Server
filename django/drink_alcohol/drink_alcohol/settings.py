@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     'account',
     'account_profile',
-    #'alcohol_store',
+    'alcohol_store',
     #'authentication',
     #'kakao_authentication',
     #'order',

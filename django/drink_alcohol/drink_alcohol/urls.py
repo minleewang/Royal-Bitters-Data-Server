@@ -20,10 +20,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    #path("kakao-oauth/", include('kakao_authentication.urls')),
     path("account/", include('account.urls')),
     path("account-profile/", include('account_profile.urls')),
-    #path("alcohol-store/", include('alcohol_store.urls')),
+    path("alcohol-store/", include('alcohol_store.urls')),
+    #path("kakao-oauth/", include('kakao_authentication.urls')),
     #path("authentication/", include('authentication.urls')),
     #path("order/", include('order.urls')),
 ]
