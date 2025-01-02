@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'account',
     'account_profile',
     'alcohol_store',
-    #'authentication',
-    #'kakao_authentication',
+    'authentication',
+    'kakao_authentication',
     #'order',
 ]
 
