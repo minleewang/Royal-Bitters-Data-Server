@@ -1,4 +1,4 @@
-#from kakao_authentication.repository.kakao_oauth_repository_impl import KakaoOauthRepositoryImpl
+from kakao_authentication.repository.kakao_oauth_repository_impl import KakaoOauthRepositoryImpl
 from kakao_authentication.service.kakao_oauth_service import KakaoOauthService
 
 
@@ -9,7 +9,7 @@ class KakaoOauthServiceImpl(KakaoOauthService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
 
-            #cls.__instance.__kakaoOauthRepository = KakaoOauthRepositoryImpl.getInstance()
+            cls.__instance.__kakaoOauthRepository = KakaoOauthRepositoryImpl.getInstance()
 
         return cls.__instance
 
