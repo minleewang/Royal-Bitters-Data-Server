@@ -11,10 +11,10 @@ router.register(r"beer", BeerController, basename='beer')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('beer-list/',
+    path('beer-list',
          BeerController.as_view({ 'get': 'requestBeerList' }),
          name='맥주 리스트 요청'),
-    path('beer-create/',
+    path('beer-create',
           BeerController.as_view({ 'post': 'requestBeerCreate' }),
           name='맥주 상품 등록 요청'),
     path('beer-read/<int:pk>',
