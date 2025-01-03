@@ -11,10 +11,10 @@ router.register(r"wine", WineController, basename='wine')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('wine-list/',
+    path('wine-list',
          WineController.as_view({ 'get': 'requestWineList' }),
          name='와인 리스트 요청'),
-    path('wine-create/',
+    path('wine-create',
           WineController.as_view({ 'post': 'requestWineCreate' }),
           name='와인 상품 등록 요청'),
     path('wine-read/<int:pk>',

@@ -45,7 +45,7 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
         except EmptyPage:
             paiginatedWhiskeyList = []
 
-        paginatedWhiskeyList = [
+        paiginatedWhiskeyList = [
             {
                 'id': goods.id,
                 'title': goods.title,

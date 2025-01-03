@@ -28,8 +28,8 @@ class BeerRepositoryImpl(BeerRepository):
     # 여기서 페이지 네이션 동작 구현
     def list(self, page=1, perPage=10): # perPage 몇개로 설정해야 하는지 몰라서 일단 10개
 
-        priceSubQuery = BeerPrice.objects.filter(Beer=OuterRef('pk')).values('price')[:1]
-        imageSubQuery = BeerImage.objects.filter(Beer=OuterRef('pk')).values('image')[:1]
+        priceSubQuery = BeerPrice.objects.filter(beer=OuterRef('pk')).values('price')[:1]
+        imageSubQuery = BeerImage.objects.filter(beer=OuterRef('pk')).values('image')[:1]
 
         BeerList = Beer.objects.annotate(
             price=Coalesce(Subquery(priceSubQuery), Value(0)),
@@ -45,7 +45,7 @@ class BeerRepositoryImpl(BeerRepository):
         except EmptyPage:
             paiginatedBeerList = []
 
-        paginatedBeerList = [
+        paiginatedBeerList = [
             {
                 'id': goods.id,
                 'title': goods.title,

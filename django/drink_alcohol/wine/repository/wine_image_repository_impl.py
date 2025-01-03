@@ -22,7 +22,7 @@ class WineImageRepositoryImpl(WineImageRepository):
 
     def create(self, wine, image):
         print(f"current working directory: {os.getcwd()}")
-        uploadDirectory = os.path.join('../../../nuxt/notes/ui/assets/images/uploadImages')
+        uploadDirectory = os.path.join('../../../SecondProject/ui/assets/images/uploadImages')
         if not os.path.exists(uploadDirectory):
             os.makedirs(uploadDirectory)
 

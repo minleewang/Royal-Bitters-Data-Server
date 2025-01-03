@@ -36,7 +36,7 @@ class WineRepositoryImpl(WineRepository):
             image=Coalesce(Subquery(imageSubQuery), Value('')),
         )
 
-        paginator = Paginator(WineList, perPage)
+        paginator = Paginator(wineList, perPage)
 
         try:
             paiginatedWineList = paginator.page(page)
@@ -45,7 +45,7 @@ class WineRepositoryImpl(WineRepository):
         except EmptyPage:
             paiginatedWineList = []
 
-        paginatedWineList = [
+        paiginatedWineList = [
             {
                 'id': goods.id,
                 'title': goods.title,
