@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'wine',
     'authentication',
     'kakao_authentication',
+    'alcohol',
     #'order',
 ]
 

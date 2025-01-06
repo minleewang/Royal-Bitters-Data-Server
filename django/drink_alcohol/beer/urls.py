@@ -5,8 +5,6 @@ from beer.controller.beer_controller import BeerController
 
 router = DefaultRouter()
 
-
-
 router.register(r"beer", BeerController, basename='beer')
 
 urlpatterns = [
