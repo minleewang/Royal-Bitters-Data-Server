@@ -19,6 +19,7 @@ class BeerDescriptionRepositoryImpl(BeerDescriptionRepository):
         return cls.__instance
 
     def create(self, beer, description):
+
         return BeerDescription.objects.create(beer=beer, description=description)
 
     def findByBeer(self, beer):

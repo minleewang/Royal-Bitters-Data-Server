@@ -30,11 +30,11 @@ class BeerServiceImpl(BeerService):
 
         return cls.__instance
 
-    # 페이지네이션
+
     def requestList(self, page, perPage):
         return self.__beerRepository.list(page, perPage)
 
-    # 상품의 전체 정보 등록하기
+
     def createBeerInfo(self, title, price, description, image):
         with transaction.atomic():
             savedBeer = self.__beerRepository.create(title)

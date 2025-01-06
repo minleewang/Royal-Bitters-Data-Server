@@ -27,5 +27,6 @@ urlpatterns = [
     path("wine/", include('wine.urls')),
     path("authentication/", include('authentication.urls')),
     path("kakao-oauth/", include('kakao_authentication.urls')),
+    path("alcohol/", include('alcohol.urls')),
     #path("order/", include('order.urls')),
 ]
