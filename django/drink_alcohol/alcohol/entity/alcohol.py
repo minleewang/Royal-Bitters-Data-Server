@@ -5,6 +5,11 @@ from alcohol.entity.role_type import RoleType
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+# Alcohol 도메인을 도입하면 주류를 하나의 엔티티로 통합하여 관리할 수 있음.
+# Alcohol 엔티티는 모든 주류(BEER, WHISKEY, WINE 등)의 공통 정보를 관리
+>>>>>>> Stashed changes
 =======
 # Alcohol 도메인을 도입하면 주류를 하나의 엔티티로 통합하여 관리할 수 있음.
 # Alcohol 엔티티는 모든 주류(BEER, WHISKEY, WINE 등)의 공통 정보를 관리
@@ -28,6 +33,7 @@ class Alcohol(models.Model):
         return self.id
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     def getTitle(self):
         return self.title
 
@@ -37,6 +43,8 @@ class Alcohol(models.Model):
     def getType(self):
         return self.type
 =======
+=======
+>>>>>>> Stashed changes
     def getAlcoholType(self):
         return self.type
 
@@ -47,5 +55,9 @@ class Alcohol(models.Model):
         return self.price
 
     def getAlcoholImage(self):
+<<<<<<< Updated upstream
+        return self.image
+>>>>>>> Stashed changes
+=======
         return self.image
 >>>>>>> Stashed changes

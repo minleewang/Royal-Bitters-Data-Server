@@ -2,6 +2,10 @@ from django.db import models
 from enum import Enum
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes
@@ -12,7 +16,11 @@ class RoleType(Enum):
 
     def __str__(self):
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         return self.value
+=======
+        return self.value
+>>>>>>> Stashed changes
 =======
         return self.value
 >>>>>>> Stashed changes

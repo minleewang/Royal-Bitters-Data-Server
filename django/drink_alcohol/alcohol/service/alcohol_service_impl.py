@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 from django.db import transaction
 
 from alcohol.repository.alcohol_image_repository_impl import AlcoholImageRepositoryImpl
@@ -53,6 +54,8 @@ class AlcoholServiceImpl(AlcoholService):
 
 
 =======
+=======
+>>>>>>> Stashed changes
 from abc import ABC, abstractmethod
 
 
@@ -68,5 +71,9 @@ class AlcoholStoreService(ABC):
 
     @abstractmethod
     def readAlcoholInfo(self, id):
+<<<<<<< Updated upstream
+        pass
+>>>>>>> Stashed changes
+=======
         pass
 >>>>>>> Stashed changes
