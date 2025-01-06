@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from django.db import transaction
 
 from alcohol.repository.alcohol_image_repository_impl import AlcoholImageRepositoryImpl
@@ -51,3 +52,21 @@ class AlcoholServiceImpl(AlcoholService):
             return readAlcohol
 
 
+=======
+from abc import ABC, abstractmethod
+
+
+class AlcoholStoreService(ABC):
+
+    @abstractmethod
+    def requestList(self, page, perPage):
+        pass
+
+    @abstractmethod
+    def createAlcoholInfo(self, title, price, description, image, alcoholCategory):
+        pass
+
+    @abstractmethod
+    def readAlcoholInfo(self, id):
+        pass
+>>>>>>> Stashed changes
