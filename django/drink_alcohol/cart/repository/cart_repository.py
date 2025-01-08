@@ -8,7 +8,7 @@ class CartRepository(ABC):
         pass
 
     @abstractmethod
-    def findCartByAccountAndGameSoftware(self, account, gameSoftware):
+    def findCartByAccountAndAlcohol(self, account, alcohol):
         pass
 
     @abstractmethod

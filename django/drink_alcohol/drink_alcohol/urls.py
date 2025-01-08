@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin9
+from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
@@ -28,5 +28,8 @@ urlpatterns = [
     path("authentication/", include('authentication.urls')),
     path("kakao-oauth/", include('kakao_authentication.urls')),
     path("alcohol/", include('alcohol.urls')),
-    #path("order/", include('order.urls')),
+    path("cart/", include('cart.urls')),
+    #path("payments/", include('payments.urls')),
+    #path("orders/", include('orders.urls')),
+    #path("board/", include('board.urls')),
 ]
