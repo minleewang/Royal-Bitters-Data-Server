@@ -3,13 +3,10 @@ from django.db.models.functions import Coalesce
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from account.repository.account_repository_impl import AccountRepositoryImpl
+from alcohol.repository.alcohol_repository_impl import AlcoholRepositoryImpl
 from cart.entity.cart import Cart
 from cart.repository.cart_repository_impl import CartRepositoryImpl
 from cart.service.cart_service import CartService
-from game_software.entity.game_software import GameSoftware
-from game_software.entity.game_software_image import GameSoftwareImage
-from game_software.entity.game_software_price import GameSoftwarePrice
-from game_software.repository.game_software_repository_impl import GameSoftwareRepositoryImpl
 
 
 class CartServiceImpl(CartService):
@@ -21,7 +18,7 @@ class CartServiceImpl(CartService):
 
             cls.__instance.__cartRepository = CartRepositoryImpl.getInstance()
             cls.__instance.__accountRepository = AccountRepositoryImpl.getInstance()
-            cls.__instance.__gameSoftwareRepository = GameSoftwareRepositoryImpl.getInstance()
+            cls.__instance.__alcoholRepository = AlcoholRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -34,25 +31,37 @@ class CartServiceImpl(CartService):
 
     def createCart(self, accountId, cart):
         foundAccount = self.__accountRepository.findById(accountId)
+        # id = accountId
+        # id(번호)로 매칭되는 소비자(계정) 검색해서 foundAccount에 저장
 
         if not foundAccount:
             raise Exception("해당 accountId에 해당하는 account를 찾을 수 없습니다.")
 
-        foundGameSoftware = self.__gameSoftwareRepository.findById(cart["id"])
+        foundAlcohol = self.__alcoholRepository.findById(cart["id"])
+        # findById는 Alcohol 테이블에서 ID가 cart["id"]인 데이터를 조회합니다.
+        # cart["id"]: 이 값은 장바구니(cart) 데이터에서 전달된 id로,
+        # 장바구니에 담긴 특정 Alcohol 항목의 ID를 나타냅니다.
 
-        if not foundGameSoftware:
-            raise Exception("해당 gameSoftwareId에 해당하는 게임을 찾을 수 없습니다.")
 
-        foundCart = self.__cartRepository.findCartByAccountAndGameSoftware(foundAccount, foundGameSoftware)
+        if not foundAlcohol:
+            raise Exception("해당 AlcoholId에 해당하는 주류를 찾을 수 없습니다.")
 
-        if foundCart:
+
+        # 장바구니(Cart)에 항목을 추가하거나 업데이트
+        # 사용자의 장바구니에 동일한 상품(Alcohol)이 이미 존재하는지 확인하고, 존재하면 수량을 업데이트하는 것
+        foundCart = self.__cartRepository.findCartByAccountAndAlcohol(foundAccount, foundAlcohol)
+        # 특정 사용자(foundAccount)의 장바구니에서 특정 술(foundAlcohol) 항목을 조회
+
+        if foundCart:  # 조회된 장바구니 항목(foundCart)이 존재하는지 확인
             foundCart.quantity += cart["quantity"]
+            # 존재하는 경우: 기존 항목의 수량(quantity)을 업데이트
             updatedCart = self.__cartRepository.save(foundCart)
+            # 업데이트된 장바구니 항목을 데이터베이스에 저장
             return updatedCart
 
         newCart = Cart(
             account=foundAccount,
-            gameSoftware=foundGameSoftware,
+            alcohol=foundAlcohol,
             quantity=cart["quantity"]
         )
         savedCart = self.__cartRepository.save(newCart)
@@ -79,7 +88,7 @@ class CartServiceImpl(CartService):
             cartDataList = [
                 {
                     "id": cart.id,
-                    "title": cart.gameSoftware.title,
+                    "title": cart.alcohol.title,
                     "price": cart.price,
                     "image": cart.image,
                     "quantity": cart.quantity,

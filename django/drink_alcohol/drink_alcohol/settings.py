@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'authentication',
     'kakao_authentication',
     'alcohol',
-    #'order',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +100,11 @@ KAKAO = {
     'REDIRECT_URI': os.getenv('KAKAO_REDIRECT_URI'),
     'TOKEN_REQUEST_URI': os.getenv('KAKAO_TOKEN_REQUEST_URI'),
     'USER_INFO_REQUEST_URI': os.getenv('KAKAO_USER_INFO_REQUEST_URI'),
+}
+
+TOSS_PAYMENTS = {
+    'TOSS_PAYMENTS_BASE_URL': os.getenv('TOSS_PAYMENTS_BASE_URL'),
+    'TOSS_PAYMENTS_SECRET_KEY': os.getenv('TOSS_PAYMENTS_SECRET_KEY'),
 }
 
 

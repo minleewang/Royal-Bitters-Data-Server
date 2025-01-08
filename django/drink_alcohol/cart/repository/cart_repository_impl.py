@@ -4,8 +4,7 @@ from django.db.models.functions import Coalesce
 
 from cart.entity.cart import Cart
 from cart.repository.cart_repository import CartRepository
-from game_software.entity.game_software_image import GameSoftwareImage
-from game_software.entity.game_software_price import GameSoftwarePrice
+
 
 
 class CartRepositoryImpl(CartRepository):
@@ -34,7 +33,7 @@ class CartRepositoryImpl(CartRepository):
 
             new_cart = Cart.objects.create(
                 account=cart.account,
-                gameSoftware=cart.gameSoftware,
+                alcohol=cart.alcohol,
                 quantity=cart.quantity
             )
             return new_cart
@@ -42,9 +41,9 @@ class CartRepositoryImpl(CartRepository):
             print(f"장바구니 저장 중 오류 발생: {e}")
             raise
 
-    def findCartByAccountAndGameSoftware(self, account, gameSoftware):
+    def findCartByAccountAndAlcohol(self, account, alcohol):
         try:
-            cart = Cart.objects.get(account=account, gameSoftware=gameSoftware)
+            cart = Cart.objects.get(account=account, alcohol=alcohol)
             return cart
 
         except Cart.DoesNotExist:
@@ -58,11 +57,13 @@ class CartRepositoryImpl(CartRepository):
             print(f"장바구니 조회 중 오류 발생: {e}")
             return None
 
-    def findCartByAccount(self, account, page, limit):
+    def findCartByAccount(self, account, page, limit): # limit: 한 페이지에 표시할 항목 수 제한
         try:
             # Cart 객체 필터링
             cart_queryset = Cart.objects.filter(account=account)
 
+
+            '''''
             # 가격 및 이미지 서브쿼리 먼저 annotate()로 처리
             annotated_cart_queryset = cart_queryset.annotate(
                 price=Coalesce(
@@ -82,9 +83,11 @@ class CartRepositoryImpl(CartRepository):
                     Value(""),
                 ),
             )
+            '''''
 
             # Paginator로 페이지네이션 적용
-            paginator = Paginator(annotated_cart_queryset, limit)  # limit을 페이지 크기로 설정
+            paginator = Paginator(cart_queryset, limit)  # limit: 한 페이지에 표시할 항목 수 제한
+
 
             try:
                 paginated_cart = paginator.page(page)  # page는 페이지 번호
