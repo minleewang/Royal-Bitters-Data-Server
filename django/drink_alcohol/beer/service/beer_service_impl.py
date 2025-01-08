@@ -46,12 +46,22 @@ class BeerServiceImpl(BeerService):
 
     def readBeerInfo(self, id):
         with transaction.atomic():
+
+            # 맥주 데이터 조회
             foundBeer = self.__beerRepository.findById(id)
             print(f"found Beer: {foundBeer}")
+
+            # 가격 데이터 조회
             foundBeerPrice = self.__beerPriceRepository.findByBeer(foundBeer)
+            # BeerPrice 테이블에서 Beer와 연결된 가격 데이터를 찾습니다.
             print(f"found Beer Price: {foundBeerPrice}")
+
+            # 이미지 데이터 조회
             foundBeerImage = self.__beerImageRepository.findByBeer(foundBeer)
+            # BeerImage 테이블에서 Beer와 연결된 이미지 데이터를 찾습니다.
             print(f"found Beer Image: {foundBeerImage}")
+
+            # 설명 데이터 조회
             foundBeerDescription = self.__beerDescriptionRepository.findByBeer(
                 foundBeer)
             print(f"found Beer Description: {foundBeerDescription}")

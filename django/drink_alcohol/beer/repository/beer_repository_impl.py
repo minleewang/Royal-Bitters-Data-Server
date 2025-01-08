@@ -25,18 +25,19 @@ class BeerRepositoryImpl(BeerRepository):
 
         return cls.__instance
 
+
     # 여기서 페이지 네이션 동작 구현
-    def list(self, page=1, perPage=10): # perPage 몇개로 설정해야 하는지 몰라서 일단 10개
+    def list(self, page, perPage):
 
         priceSubQuery = BeerPrice.objects.filter(beer=OuterRef('pk')).values('price')[:1]
         imageSubQuery = BeerImage.objects.filter(beer=OuterRef('pk')).values('image')[:1]
 
-        BeerList = Beer.objects.annotate(
+        beerList = Beer.objects.annotate(
             price=Coalesce(Subquery(priceSubQuery), Value(0)),
             image=Coalesce(Subquery(imageSubQuery), Value('')),
         )
 
-        paginator = Paginator(BeerList, perPage)
+        paginator = Paginator(beerList, perPage)
 
         try:
             paiginatedBeerList = paginator.page(page)
@@ -55,7 +56,7 @@ class BeerRepositoryImpl(BeerRepository):
             for goods in paiginatedBeerList
         ]  # paiginatedBeerList에 있는 것들 하나씩 출력
 
-        print(f"Total items: {len(BeerList)}")
+        print(f"Total items: {len(beerList)}")
         print(f"Page items: {len(paiginatedBeerList)}")
 
         return paiginatedBeerList, paginator.num_pages
@@ -65,9 +66,7 @@ class BeerRepositoryImpl(BeerRepository):
     # Beer 테이블에서 create/ title 정보로 저장
     def create(self, title):
         return Beer.objects.create(title=title)
-
-
-
+                # 자동 저장
 
     # 검색 기능
     def findById(self, id):

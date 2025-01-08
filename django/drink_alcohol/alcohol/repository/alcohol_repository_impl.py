@@ -24,53 +24,43 @@ class AlcoholRepositoryImpl(AlcoholRepository):
         return cls.__instance
 
 
-    def list(self, page=1, perPage=10):
-#   실제 GameSoftwarePrice에 gameSoftare에 해당하는 pk 값 중 price 값과 일치되는 것을 뽑아옴
-# ???? 난 price가 없는데
-        priceSubQuery = Alcohol.objects.filter(alcohol=OuterRef('pk')).values('price')[:1]
-        imageSubQuery = AlcoholImage.objects.filter(beer=OuterRef('pk')).values('image')[:1]
+    def list(self, page, perPage):
 
-        alcoholList = Alcohol.objects.annotate(
-            price=Coalesce(Subquery(priceSubQuery), Value(0)),
-            image=Coalesce(Subquery(imageSubQuery), Value('')),
-        )
+        alcoholList = Alcohol.objects.all()
+        #alcoholList = Alcohol.objects.all()[(page - 1) * perPage:page * perPage]
 
-        paginator = Paginator(alcoholList, perPage)
+        #paginator = Paginator(Alcohol, perPage)  # 이게 alcoholList 임의로 만들기 전 코드
+        paginator = Paginator(alcoholList,perPage)
 
         try:
-            paiginatedAlcoholList = paginator.page(page)
+            paginatedAlcoholList = paginator.page(page)
         except PageNotAnInteger:
-            paiginatedAlcoholList = paginator.page(1)
+            paginatedAlcoholList = paginator.page(1)
         except EmptyPage:
-            paiginatedAlcoholList = []
+            paginatedAlcoholList = []
 
-        paiginatedAlcoholList = [
+        paginatedAlcoholList = [
             {
                 'id': goods.id,
                 'title': goods.title,
                 'price': goods.price,
                 'image': goods.image,
+                'type': goods.type,
             }
-            for goods in paiginatedAlcoholList
-        ]  # paiginatedBeerList에 있는 것들 하나씩 출력
+            for goods in paginatedAlcoholList
+        ]
 
         print(f"Total items: {len(alcoholList)}")
-        print(f"Page items: {len(paiginatedAlcoholList)}")
+        print(f"Page items: {len(paginatedAlcoholList)}")
 
-        return paiginatedAlcoholList, paginator.num_pages
-
-
-
-    # Beer 테이블에서 create/ title 정보로 저장
-    def create(self, title):
-        return Alcohol.objects.create(title=title)
+        return paginatedAlcoholList, paginator.num_pages
 
 
+    def create(self, title, price, type, image):
+        return Alcohol.objects.create(title=title, price=price, type=type, image=image)
 
-
-    # 검색 기능
     def findById(self, id):
         return Alcohol.objects.get(id=id)
 
-    def findAll(self):
-        return Alcohol.objects.all()
+    #def findAll(self):
+    #    return Alcohol.objects.all()

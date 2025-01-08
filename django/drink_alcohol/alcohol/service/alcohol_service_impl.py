@@ -1,9 +1,10 @@
 from django.db import transaction
 
-from alcohol.repository.alcohol_image_repository_impl import AlcoholImageRepositoryImpl
 from alcohol.repository.alcohol_repository_impl import AlcoholRepositoryImpl
 from alcohol.service.alcohol_service import AlcoholService
 
+# 기본적으로 Alcohol 데이터를 생성, 읽기, 수정, 삭제하는 기능이 필요
+# 수정, 삭제는 안하기로 Create,Read 이 두개만 합시다.
 
 class AlcoholServiceImpl(AlcoholService):
     __instance = None
@@ -12,7 +13,7 @@ class AlcoholServiceImpl(AlcoholService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__alcoholRepository = AlcoholRepositoryImpl.getInstance()
-            cls.__instance.__alcoholImageRepository = AlcoholImageRepositoryImpl.getInstance()
+
         return cls.__instance
 
     @classmethod
@@ -22,32 +23,28 @@ class AlcoholServiceImpl(AlcoholService):
 
         return cls.__instance
 
+
     def requestAlcoholList(self, page, perPage):
         return self.__alcoholRepository.list(page, perPage)
-    # AlcoholRepository에 list 있어야 함
-
-    def createAlcoholList(self, title, price, type, image):
-        with transaction.atomic():
-            savedAlcohol = self.__alcoholRepository.create(title, price, type)
-            self.__alcoholImageRepository.create(savedAlcohol, image)
-            # AlcoholImageRepository 에도 list 있어야함
-
-    def readAlcoholById(self, id):
-        with transaction.atomic():
-            foundAlcohol = self.__alcoholRepository.findById(id) # alcoholRepository에 findById 해야함
-            print(f"foundAlcohol: {foundAlcohol}")
-            foundAlcoholImage = self.__alcoholImageRepository.findById(foundAlcohol)
-            print(f"foundAlcoholImage: {foundAlcoholImage}")
 
 
-            readAlcohol = {
-                'id': foundAlcohol.getId(),
-                'title': foundAlcohol.getTitle(),
-                'price': foundAlcohol.getPrice(),
-                'image': foundAlcoholImage.getImage(),
-                'type': foundAlcohol.getType()
+    def createAlcohol(self, title, price, type, image):
+        #with transaction.atomic():
+        return self.__alcoholRepository.create(title, price, type, image)
+
+
+    # 이 부분 수정 필요
+    def readAlcohol(self, id):
+
+        foundAlcohol = self.__alcoholRepository.findById(id)
+        print(f"foundAlcohol: {foundAlcohol}")
+
+        readAlcoholInfo = {
+            'id': foundAlcohol.getAlcoholId(),
+            'title': foundAlcohol.getAlcoholTitle(),
+            'price': foundAlcohol.getAlcoholPrice(),
+            'image': foundAlcohol.getAlcoholImage(),
+            'type': foundAlcohol.getAlcoholType()
             }
 
-            return readAlcohol
-
-
+        return readAlcoholInfo

@@ -7,7 +7,8 @@ router = DefaultRouter()
 
 
 
-router.register(r"alcohol", AlcoholController, basename='alcohol')
+router.register(r"alcohol",
+                AlcoholController, basename='alcohol')
 
 urlpatterns = [
     path('', include(router.urls)),
