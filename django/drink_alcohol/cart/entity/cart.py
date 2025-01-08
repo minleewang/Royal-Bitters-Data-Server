@@ -1,14 +1,12 @@
 from django.db import models
 from account.entity.account import Account
-from beer.entity.beer import Beer
-from whiskey.entity.whiskey import Whiskey
-from wine.entity.wine import Wine
+from game_software.entity.game_software import GameSoftware
 
 
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="carts")
-    drink = models.ForeignKey(Beer, on_delete=models.CASCADE, related_name="carts")
+    gameSoftware = models.ForeignKey(GameSoftware, on_delete=models.CASCADE, related_name="carts")
     quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
