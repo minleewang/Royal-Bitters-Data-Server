@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class BeerPriceRepository(ABC):
 
     @abstractmethod
-    def create(self, beeer, price):
+    def create(self, beer, price):
         pass
 
     @abstractmethod
