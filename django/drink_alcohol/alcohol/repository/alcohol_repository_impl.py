@@ -64,3 +64,9 @@ class AlcoholRepositoryImpl(AlcoholRepository):
 
     #def findAll(self):
     #    return Alcohol.objects.all()
+
+    def findPriceById(self, id):
+        alcoholPrice =  Alcohol.objects.get(id=id)
+        return alcoholPrice.price
+
+
