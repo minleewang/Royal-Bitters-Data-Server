@@ -8,7 +8,7 @@ class WhiskeyRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, title):
+    def create(self, title, type):
         pass
 
     @abstractmethod
@@ -17,4 +17,8 @@ class WhiskeyRepository(ABC):
 
     @abstractmethod
     def findAll(self):
+        pass
+
+    @abstractmethod
+    def letRoleTypeWhiskey(self):
         pass

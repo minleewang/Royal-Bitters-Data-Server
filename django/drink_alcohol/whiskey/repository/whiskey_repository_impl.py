@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
 
+from alcohol.entity.role_type import RoleType
 from whiskey.entity.whiskey import Whiskey
 from whiskey.entity.whiskey_image import WhiskeyImage
 from whiskey.entity.whiskey_price import WhiskeyPrice
@@ -63,10 +64,8 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
 
 
     # Whiskey 테이블에서 create/ title 정보로 저장
-    def create(self, title):
-        return Whiskey.objects.create(title=title)
-
-
+    def create(self, title, type):
+        return Whiskey.objects.create(title=title, type=type)
 
 
     # 검색 기능
@@ -77,3 +76,8 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
         return Whiskey.objects.all()
 
 
+    def letRoleTypeWhiskey(self):
+        alcoholRoleTypeIsWiskey = Whiskey.objects.filter(
+            alcohol__type=RoleType.WHISKEY.value  # Alcohol 테이블의 type 필드가 'BEER'인 데이터 필터링
+        )
+        return alcoholRoleTypeIsWiskey

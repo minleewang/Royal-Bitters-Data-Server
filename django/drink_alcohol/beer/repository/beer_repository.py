@@ -8,7 +8,7 @@ class BeerRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, title):
+    def create(self, title, type):
         pass
 
     @abstractmethod
@@ -17,4 +17,8 @@ class BeerRepository(ABC):
 
     @abstractmethod
     def findAll(self):
+        pass
+
+    @abstractmethod
+    def letRoleTypeBeer(self):
         pass

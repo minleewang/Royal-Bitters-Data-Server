@@ -29,7 +29,7 @@ urlpatterns = [
     path("kakao-oauth/", include('kakao_authentication.urls')),
     path("alcohol/", include('alcohol.urls')),
     path("cart/", include('cart.urls')),
-    #path("payments/", include('payments.urls')),
-    #path("orders/", include('orders.urls')),
+    path("payments/", include('payments.urls')),
+    path("orders/", include('orders.urls')),
     #path("board/", include('board.urls')),
 ]

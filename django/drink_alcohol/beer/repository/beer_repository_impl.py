@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
 
+from alcohol.entity.role_type import RoleType
 from beer.entity.beer_image import BeerImage
 from beer.entity.beer_price import BeerPrice
 from beer.entity.beer import Beer
@@ -64,8 +65,8 @@ class BeerRepositoryImpl(BeerRepository):
 
 
     # Beer 테이블에서 create/ title 정보로 저장
-    def create(self, title):
-        return Beer.objects.create(title=title)
+    def create(self, title, type):
+        return Beer.objects.create(title=title, type=type)
                 # 자동 저장
 
     # 검색 기능
@@ -75,4 +76,19 @@ class BeerRepositoryImpl(BeerRepository):
     def findAll(self):
         return Beer.objects.all()
 
+    def letRoleTypeBeer(self):
 
+        AlcoholRoleTypeIsBeer = Beer.objects.filter(
+            alcohol__type=RoleType.BEER.value  # Alcohol 테이블의 type 필드가 'BEER'인 데이터 필터링
+        )
+        return AlcoholRoleTypeIsBeer
+
+
+        #try: # Beer 객체를 가져오면서 Alcohol 데이터도 가져옴
+        #    beer = Beer.objects.select_related('alcohol').get(id=beer_id)
+        #    return beer.alcohol.type
+
+        #except Beer.DoesNotExist:
+        #    raise Exception(f"Beer with ID {beer_id} does not exist.")
+
+    #account = self.__accountRepository.findById(accountId)

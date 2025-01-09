@@ -30,19 +30,16 @@ class AlcoholServiceImpl(AlcoholService):
             cls.__instance.__beerRepository = BeerRepositoryImpl.getInstance()
             cls.__instance.__beerPriceRepository = BeerPriceRepositoryImpl.getInstance()
             cls.__instance.__beerImageRepository = BeerImageRepositoryImpl.getInstance()
-            # alcohol에서 type 가져와야함
 
             # whiskey
             cls.__instance.__whiskeyRepository = WhiskeyRepositoryImpl.getInstance()
             cls.__instance.__whiskeyPriceRepository = WhiskeyPriceRepositoryImpl.getInstance()
             cls.__instance.__whiskeyImageRepository = WhiskeyImageRepositoryImpl.getInstance()
-            # alcohol에서 type 가져와야함
 
             # wine
             cls.__instance.__wineRepository = WineRepositoryImpl.getInstance()
             cls.__instance.__winePriceRepository = WinePriceRepositoryImpl.getInstance()
             cls.__instance.__wineImageRepository = WineImageRepositoryImpl.getInstance()
-            # alcohol에서 type 가져와야함
 
         return cls.__instance
 
@@ -60,31 +57,28 @@ class AlcoholServiceImpl(AlcoholService):
 
     def createAlcohol(self, title, price, type, image):
 
-        #alcohol_type = Alcohol.objects.first()
-        #findByType??
-        #findBy???
-
-        if alcohol["type"] == RoleType.BEER.value:
+        if type == RoleType.BEER.value:
+        #if alcohol["type"] == RoleType.BEER.value:
             with transaction.atomic():
-                savedBeer = self.__beerRepository.create(title)
+                savedTypeBeer = self.__beerRepository.letRoleTypeBeer()
+                savedBeer = self.__beerRepository.create(title, savedTypeBeer)
                 self.__beerPriceRepository.create(savedBeer, price)
                 self.__beerImageRepository.create(savedBeer, image)
-                #self.__beerType = RoleType.BEER.value beerTypeRepository 없는데..
 
 
-        # if 데이터가 Whiskey라면
-        with transaction.atomic():
-            savedWhiskey = self.__whiskeyRepository.create(title)
-            self.__whiskeyPriceRepository.create(savedWhiskey, price)
-            self.__whiskeyImageRepository.create(savedWhiskey, image)
-            # self.__beerType 타입은 어쩌지
+        if type == RoleType.WHISKEY.value:
+            with transaction.atomic():
+                savedTypeWhiskey = self.__beerRepository.letRoleTypeWhiskey()
+                savedWhiskey = self.__whiskeyRepository.create(title,savedTypeWhiskey)
+                self.__whiskeyPriceRepository.create(savedWhiskey, price)
+                self.__whiskeyImageRepository.create(savedWhiskey, image)
 
-        # if 데이터가 Wine이라면
-        with transaction.atomic():
-            savedWine = self.__wineRepository.create(title)
-            self.__winePriceRepository.create(savedWine, price)
-            self.__wineImageRepository.create(savedWine, image)
-            # self.__beerType 타입은 어쩌지
+        if type == RoleType.WINE.value:
+            with transaction.atomic():
+                savedTypeWine = self.__beerRepository.letRoleTypeWine()
+                savedWine = self.__wineRepository.create(title,savedTypeWine)
+                self.__winePriceRepository.create(savedWine, price)
+                self.__wineImageRepository.create(savedWine, image)
 
             
     def readAlcohol(self, id):
