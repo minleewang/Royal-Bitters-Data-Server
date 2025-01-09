@@ -8,6 +8,7 @@ class Beer(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32)
 
+    ''''
     def to_alcohol(self):
         # 연결된 데이터 조회
         price = self.price.first()  # BeerPrice와 연결된 첫 번째 가격
@@ -21,6 +22,7 @@ class Beer(models.Model):
             price=price.price if price else None,  # 가격이 없으면 None
             image=image.image if image else None,  # 이미지가 없으면 None
         )
+        '''''
 
     class Meta:
         db_table = 'beer'

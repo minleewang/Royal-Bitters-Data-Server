@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'kakao_authentication',
     'alcohol',
     'cart',
+    #'payments',
+    #'orders'
 ]
 
 MIDDLEWARE = [
