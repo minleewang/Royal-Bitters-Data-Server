@@ -89,8 +89,8 @@ class CartServiceImpl(CartService):
                 {
                     "id": cart.id,
                     "title": cart.alcohol.title,
-                    "price": cart.price,
-                    "image": cart.image,
+                    "price": cart.alcohol.price,
+                    #"image": cart.image,
                     "quantity": cart.quantity,
                 }
                 for cart in paginatedCartList
