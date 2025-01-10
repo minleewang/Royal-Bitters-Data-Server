@@ -9,3 +9,7 @@ class AccountService(ABC):
     @abstractmethod
     def checkEmailDuplication(self, email):
         pass
+
+    @abstractmethod
+    def findEmail(self, accountId):
+        pass

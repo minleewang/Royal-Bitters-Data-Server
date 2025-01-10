@@ -24,6 +24,6 @@ class OrderItemRepositoryImpl(OrderItemRepository):
             if not orderItem.orders:
                 raise Exception(f"Order item with ID {orderItem.id} has no associated order.")
             print(
-                f"Order ID: {orderItem.orders.id}, Game Software: {orderItem.game_software.id}, Quantity: {orderItem.quantity}, Price: {orderItem.price}")
+                f"Order ID: {orderItem.orders.id}, Alcohol: {orderItem.alcohol}, Quantity: {orderItem.quantity}, Price: {orderItem.price}")
 
         OrdersItems.objects.bulk_create(orderItemList)
