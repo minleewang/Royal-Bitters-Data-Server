@@ -31,4 +31,3 @@ class Alcohol(models.Model):
 
     def getAlcoholType(self):
         return self.type
-

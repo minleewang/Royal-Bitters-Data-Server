@@ -8,7 +8,7 @@ class BeerRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, alchol):
+    def create(self, beer):
         pass
 
     @abstractmethod
