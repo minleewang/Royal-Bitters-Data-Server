@@ -20,6 +20,7 @@ class BeerController(viewsets.ViewSet):
         perPage = int(getRequest.get("perPage", 8))
                                     # 총 8개씩 주류 표시
         paginatedBeerList, totalPages = self.beerService.requestList(page, perPage)
+        print(f"paginatedBeerList: {paginatedBeerList}")
 
         return JsonResponse({
             "dataList": paginatedBeerList,

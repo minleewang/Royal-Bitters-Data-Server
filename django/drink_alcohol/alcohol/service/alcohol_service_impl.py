@@ -15,9 +15,6 @@ from wine.repository.wine_price_repository_impl import WinePriceRepositoryImpl
 from wine.repository.wine_repository_impl import WineRepositoryImpl
 
 
-# 기본적으로 Alcohol 데이터를 생성, 읽기, 수정, 삭제하는 기능이 필요
-# 수정, 삭제는 안하기로 Create,Read 이 두개만 합시다.
-
 class AlcoholServiceImpl(AlcoholService):
     __instance = None
 
@@ -58,8 +55,8 @@ class AlcoholServiceImpl(AlcoholService):
         if type == RoleType.BEER.value:
             # if alcohol["type"] == RoleType.BEER.value:
             with transaction.atomic():
-                savedTypeBeer = self.__beerRepository.letRoleTypeBeer()
-                savedBeer = self.__beerRepository.create(title, savedTypeBeer)
+                #savedTypeBeer = self.__beerRepository.letRoleTypeBeer()
+                savedBeer = self.__beerRepository.create(title, type="BEER")#savedTypeBeer)
                 self.__beerPriceRepository.create(savedBeer, price)
                 self.__beerImageRepository.create(savedBeer, image)
 

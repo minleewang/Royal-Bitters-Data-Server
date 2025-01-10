@@ -26,5 +26,5 @@ class Beer(models.Model):
     def getId(self):
         return self.id
 
-    def getAlchol(self):
+    def getAlcohol(self):
         return self.alcohol

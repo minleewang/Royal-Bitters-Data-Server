@@ -38,17 +38,11 @@ class BeerServiceImpl(BeerService):
         return self.__beerRepository.list(page, perPage)
 
 
-    #def createBeerInfo(self, title, price, description, image):
-    #    with transaction.atomic():
-    #        savedBeer = self.__beerRepository.create(title)
-    #        self.__beerPriceRepository.create(savedBeer, price)
-    #        self.__beerDescriptionRepository.create(savedBeer, description)
-    #        self.__beerImageRepository.create(savedBeer, image)
-
     def createBeerInfo(self, title, price, description, image):
+        #create(self, title, price, type, image)
         with transaction.atomic():
             # 이 부분은 가상의 형태를 표현한 것임
-            savedAlcohol = self.__alcoholRepository.create(title, price, 'BEER', image)
+            savedAlcohol = self.__alcoholRepository.create(title, price,type, image)
             # savedAlchol
             beer = Beer(alcohol=savedAlcohol)
             savedBeer = self.__beerRepository.create(beer)
@@ -86,7 +80,7 @@ class BeerServiceImpl(BeerService):
 
             readBeerInfo = {
                 'id': foundBeer.getId(),
-                'title': foundBeer.getTitle(),
+                #'title': foundBeer.getTitle(),
                 'price': foundBeerPrice.getPrice(),
                 'image': foundBeerImage.getImage(),
                 'description': foundBeerDescription.getDescription(),

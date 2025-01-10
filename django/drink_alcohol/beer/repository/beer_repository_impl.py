@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
 
+from alcohol.entity.alcohol import Alcohol
 from alcohol.entity.role_type import RoleType
 from beer.entity.beer_image import BeerImage
 from beer.entity.beer_price import BeerPrice
@@ -32,10 +33,13 @@ class BeerRepositoryImpl(BeerRepository):
 
         priceSubQuery = BeerPrice.objects.filter(beer=OuterRef('pk')).values('price')[:1]
         imageSubQuery = BeerImage.objects.filter(beer=OuterRef('pk')).values('image')[:1]
+        #titleSubQuery = Beer.getAlcohol().object.filter(beer=OuterRef('pk')).values('type')[:1]
+        titleSubQuery = Alcohol.objects.filter(beer_alcohols=OuterRef('pk')).values('type')[:1]
 
         beerList = Beer.objects.annotate(
             price=Coalesce(Subquery(priceSubQuery), Value(0)),
             image=Coalesce(Subquery(imageSubQuery), Value('')),
+            title =Coalesce(Subquery(titleSubQuery), Value(''))
         )
 
         paginator = Paginator(beerList, perPage)
