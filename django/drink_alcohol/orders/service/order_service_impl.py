@@ -99,7 +99,7 @@ class OrderServiceImpl(OrderService):
             # 주문 항목 생성
             orderItem = OrdersItems(
                 orders=orders,  # orders가 올바르게 연결되었는지 확인
-                alcoholTitle= alcohol, # alcohol = cartItem.getAlcohol()
+                alcohol= alcohol, # alcohol = cartItem.getAlcohol()
                 quantity=item["quantity"],
                 price=alcoholPrice * item["quantity"],
             )

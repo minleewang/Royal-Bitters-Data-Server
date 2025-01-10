@@ -1,6 +1,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 
 from account.entity.account import Account
+from account.entity.account_role_type import AccountRoleType
+from account.entity.role_type import RoleType
 from account.repository.account_repository import AccountRepository
 
 
@@ -21,11 +23,11 @@ class AccountRepositoryImpl(AccountRepository):
         return cls.__instance
 
     def save(self, email):
-        account = Account(email=email)
+        defaultRoleType, created = AccountRoleType.objects.get_or_create(roleType=RoleType.NORMAL)
+
+        account = Account(email=email, roleType=defaultRoleType)
         account.save()
         return account
-    # email만으로 Customer (소비자) 식별
-
 
     def findById(self, accountId):
         try:
@@ -38,4 +40,3 @@ class AccountRepositoryImpl(AccountRepository):
             return Account.objects.get(email=email)
         except ObjectDoesNotExist:
             raise ObjectDoesNotExist(f"Account {email} 존재하지 않음.")
-

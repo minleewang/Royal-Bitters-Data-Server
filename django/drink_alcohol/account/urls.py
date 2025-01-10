@@ -8,4 +8,7 @@ router.register(r"account", AccountController, basename='account')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('email',
+         AccountController.as_view({ 'post': 'requestEmail' }),
+         name='로그아웃 요청'),
 ]
