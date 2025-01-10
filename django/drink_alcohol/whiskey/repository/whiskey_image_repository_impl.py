@@ -22,7 +22,8 @@ class WhiskeyImageRepositoryImpl(WhiskeyImageRepository):
 
     def create(self, whiskey, image):
         print(f"current working directory: {os.getcwd()}")
-        uploadDirectory = os.path.join('../../../SecondProject/ui/assets/images/uploadImages')
+        uploadDirectory = os.path.join('../../../../SecondProject/ui/assets/images/uploadImages채ㅜㅇㅁ ㅁㅊ샾ㅁㅅㄷ 나ㅜ08-312'
+                                       '')
         if not os.path.exists(uploadDirectory):
             os.makedirs(uploadDirectory)
 

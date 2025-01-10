@@ -65,8 +65,9 @@ class BeerRepositoryImpl(BeerRepository):
 
 
     # Beer 테이블에서 create/ title 정보로 저장
-    def create(self, title, type):
-        return Beer.objects.create(title=title, type=type)
+    def create(self, beer):
+        beer.save()
+        return beer
                 # 자동 저장
 
     # 검색 기능

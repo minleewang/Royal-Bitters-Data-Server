@@ -36,12 +36,14 @@ class BeerController(viewsets.ViewSet):
         beerTitle = postRequest.get('beerTitle')
         beerPrice = postRequest.get('beerPrice')
         beerDescription = postRequest.get('beerDescription')
+        alcohol_type = 'BEER'
         # POST 요청에서 클라이언트가 보낸 beerTitle, beerPrice, beerDescription 데이터를 추출
 
         print(f"BeerImage: {beerImage}, "
               f"BeerTitle: {beerTitle}, "
               f"BeerPrice: {beerPrice}, "
-              f"BeerDescription: {beerDescription},")
+              f"BeerDescription: {beerDescription},"
+              f"AlcoholType: {alcohol_type}")
 
         # 데이터 검증
         if not all([beerImage, beerTitle, beerPrice, beerDescription]):
