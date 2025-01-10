@@ -1,5 +1,7 @@
 from django.db import transaction
 
+from alcohol.repository.alcohol_repository_impl import AlcoholRepositoryImpl
+from beer.entity.beer import Beer
 from beer.repository.beer_description_repository_impl import BeerDescriptionRepositoryImpl
 from beer.repository.beer_image_repository_impl import BeerImageRepositoryImpl
 from beer.repository.beer_price_repository_impl import BeerPriceRepositoryImpl
@@ -19,6 +21,7 @@ class BeerServiceImpl(BeerService):
             cls.__instance.__beerPriceRepository = BeerPriceRepositoryImpl.getInstance()
             cls.__instance.__beerDescriptionRepository = BeerDescriptionRepositoryImpl.getInstance()
             cls.__instance.__beerImageRepository = BeerImageRepositoryImpl.getInstance()
+            cls.__instance.__alcoholRepository =  AlcoholRepositoryImpl.getInstance()
 
 
         return cls.__instance
@@ -35,12 +38,25 @@ class BeerServiceImpl(BeerService):
         return self.__beerRepository.list(page, perPage)
 
 
+    #def createBeerInfo(self, title, price, description, image):
+    #    with transaction.atomic():
+    #        savedBeer = self.__beerRepository.create(title)
+    #        self.__beerPriceRepository.create(savedBeer, price)
+    #        self.__beerDescriptionRepository.create(savedBeer, description)
+    #        self.__beerImageRepository.create(savedBeer, image)
+
     def createBeerInfo(self, title, price, description, image):
         with transaction.atomic():
-            savedBeer = self.__beerRepository.create(title)
+            # 이 부분은 가상의 형태를 표현한 것임
+            savedAlcohol = self.__alcoholRepository.create(title, price, 'BEER', image)
+            # savedAlchol
+            beer = Beer(alcohol=savedAlcohol)
+            savedBeer = self.__beerRepository.create(beer)
+
             self.__beerPriceRepository.create(savedBeer, price)
             self.__beerDescriptionRepository.create(savedBeer, description)
             self.__beerImageRepository.create(savedBeer, image)
+
 
 
 
