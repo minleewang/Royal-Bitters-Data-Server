@@ -3,6 +3,7 @@ from django.db.models import OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
 
 from alcohol.entity.role_type import RoleType
+from whiskey.entity import whiskey
 from whiskey.entity.whiskey import Whiskey
 from whiskey.entity.whiskey_image import WhiskeyImage
 from whiskey.entity.whiskey_price import WhiskeyPrice
@@ -63,10 +64,11 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
                                     # 데이터의 전체 항목을 페이지 크기로 나눈 뒤의 총 페이지 수를 반환
 
 
-    # Whiskey 테이블에서 create/ title 정보로 저장
-    def create(self, title, type):
-        return Whiskey.objects.create(title=title, type=type)
-
+    # Beer 테이블에서 create/ title 정보로 저장
+    def create(self, whiskey):
+        whiskey.save()
+        return whiskey
+                # 자동 저장
 
     # 검색 기능
     def findById(self, id):

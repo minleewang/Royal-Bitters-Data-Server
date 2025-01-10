@@ -50,37 +50,33 @@ class AlcoholServiceImpl(AlcoholService):
 
         return cls.__instance
 
-
     def requestAlcoholList(self, page, perPage):
         return self.__alcoholRepository.list(page, perPage)
-
 
     def createAlcohol(self, title, price, type, image):
 
         if type == RoleType.BEER.value:
-        #if alcohol["type"] == RoleType.BEER.value:
+            # if alcohol["type"] == RoleType.BEER.value:
             with transaction.atomic():
                 savedTypeBeer = self.__beerRepository.letRoleTypeBeer()
                 savedBeer = self.__beerRepository.create(title, savedTypeBeer)
                 self.__beerPriceRepository.create(savedBeer, price)
                 self.__beerImageRepository.create(savedBeer, image)
 
-
         if type == RoleType.WHISKEY.value:
             with transaction.atomic():
                 savedTypeWhiskey = self.__beerRepository.letRoleTypeWhiskey()
-                savedWhiskey = self.__whiskeyRepository.create(title,savedTypeWhiskey)
+                savedWhiskey = self.__whiskeyRepository.create(title, savedTypeWhiskey)
                 self.__whiskeyPriceRepository.create(savedWhiskey, price)
                 self.__whiskeyImageRepository.create(savedWhiskey, image)
 
         if type == RoleType.WINE.value:
             with transaction.atomic():
                 savedTypeWine = self.__beerRepository.letRoleTypeWine()
-                savedWine = self.__wineRepository.create(title,savedTypeWine)
+                savedWine = self.__wineRepository.create(title, savedTypeWine)
                 self.__winePriceRepository.create(savedWine, price)
                 self.__wineImageRepository.create(savedWine, image)
 
-            
     def readAlcohol(self, id):
 
         foundAlcohol = self.__alcoholRepository.findById(id)
@@ -92,6 +88,6 @@ class AlcoholServiceImpl(AlcoholService):
             'price': foundAlcohol.getAlcoholPrice(),
             'image': foundAlcohol.getAlcoholImage(),
             'type': foundAlcohol.getAlcoholType()
-            }
+        }
 
         return readAlcoholInfo
