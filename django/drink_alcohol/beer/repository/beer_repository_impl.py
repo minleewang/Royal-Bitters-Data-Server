@@ -83,10 +83,10 @@ class BeerRepositoryImpl(BeerRepository):
 
     def letRoleTypeBeer(self):
 
-        AlcoholRoleTypeIsBeer = Beer.objects.filter(
+        alcoholRoleTypeIsBeer = Beer.objects.filter(
             alcohol__type=RoleType.BEER.value  # Alcohol 테이블의 type 필드가 'BEER'인 데이터 필터링
         )
-        return AlcoholRoleTypeIsBeer
+        return alcoholRoleTypeIsBeer
 
 
         #try: # Beer 객체를 가져오면서 Alcohol 데이터도 가져옴

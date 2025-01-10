@@ -36,11 +36,12 @@ class WhiskeyServiceImpl(WhiskeyService):
     def requestList(self, page, perPage):
         return self.__whiskeyRepository.list(page, perPage)
 
+
     # 상품의 전체 정보 등록하기
     def createWhiskeyInfo(self, title, price, description, image):
         with transaction.atomic():
             # 이 부분은 가상의 형태를 표현한 것임
-            savedAlcohol = self.__alcoholRepository.create(title, price, 'WHISKEY', image)
+            savedAlcohol = self.__alcoholRepository.create(title, price, type, image)
             # savedAlchol
             whiskey = Whiskey(alcohol=savedAlcohol)
             savedWhiskey = self.__whiskeyRepository.create(whiskey)
@@ -53,12 +54,16 @@ class WhiskeyServiceImpl(WhiskeyService):
 
     def readWhiskeyInfo(self, id):
         with transaction.atomic():
+
             foundWhiskey = self.__whiskeyRepository.findById(id)
             print(f"found Whiskey: {foundWhiskey}")
+
             foundWhiskeyPrice = self.__whiskeyPriceRepository.findByWhiskey(foundWhiskey)
             print(f"found Whiskey Price: {foundWhiskeyPrice}")
+
             foundWhiskeyImage = self.__whiskeyImageRepository.findByWhiskey(foundWhiskey)
             print(f"found Whiskey Image: {foundWhiskeyImage}")
+
             foundWhiskeyDescription = self.__whiskeyDescriptionRepository.findByWhiskey(
                 foundWhiskey)
             print(f"found Whiskey Description: {foundWhiskeyDescription}")
