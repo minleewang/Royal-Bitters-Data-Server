@@ -34,7 +34,7 @@ class BeerRepositoryImpl(BeerRepository):
         priceSubQuery = BeerPrice.objects.filter(beer=OuterRef('pk')).values('price')[:1]
         imageSubQuery = BeerImage.objects.filter(beer=OuterRef('pk')).values('image')[:1]
         #titleSubQuery = Beer.getAlcohol().object.filter(beer=OuterRef('pk')).values('type')[:1]
-        titleSubQuery = Alcohol.objects.filter(beer_alcohols=OuterRef('pk')).values('type')[:1]
+        titleSubQuery = Alcohol.objects.filter(beer_alcohols=OuterRef('pk')).values('title')[:1]
 
         beerList = Beer.objects.annotate(
             price=Coalesce(Subquery(priceSubQuery), Value(0)),

@@ -35,7 +35,7 @@ class CartRepositoryImpl(CartRepository):
                 account=cart.account,
                 alcohol=cart.alcohol,
                 quantity=cart.quantity,
-                price = cart.alcohol.price,
+                #price = cart.alcohol.price,
             )
             return new_cart
         except Exception as e:
