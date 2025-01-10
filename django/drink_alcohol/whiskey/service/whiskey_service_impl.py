@@ -1,5 +1,7 @@
 from django.db import transaction
 
+from alcohol.repository.alcohol_repository_impl import AlcoholRepositoryImpl
+from whiskey.entity.whiskey import Whiskey
 from whiskey.repository.whiskey_description_repository_impl import WhiskeyDescriptionRepositoryImpl
 from whiskey.repository.whiskey_image_repository_impl import WhiskeyImageRepositoryImpl
 from whiskey.repository.whiskey_price_repository_impl import WhiskeyPriceRepositoryImpl
@@ -19,7 +21,7 @@ class WhiskeyServiceImpl(WhiskeyService):
             cls.__instance.__whiskeyPriceRepository = WhiskeyPriceRepositoryImpl.getInstance()
             cls.__instance.__whiskeyDescriptionRepository = WhiskeyDescriptionRepositoryImpl.getInstance()
             cls.__instance.__whiskeyImageRepository = WhiskeyImageRepositoryImpl.getInstance()
-
+            cls.__instance.__alcoholRepository = AlcoholRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -37,7 +39,12 @@ class WhiskeyServiceImpl(WhiskeyService):
     # 상품의 전체 정보 등록하기
     def createWhiskeyInfo(self, title, price, description, image):
         with transaction.atomic():
-            savedWhiskey = self.__whiskeyRepository.create(title)
+            # 이 부분은 가상의 형태를 표현한 것임
+            savedAlcohol = self.__alcoholRepository.create(title, price, 'WHISKEY', image)
+            # savedAlchol
+            whiskey = Whiskey(alcohol=savedAlcohol)
+            savedWhiskey = self.__whiskeyRepository.create(whiskey)
+
             self.__whiskeyPriceRepository.create(savedWhiskey, price)
             self.__whiskeyDescriptionRepository.create(savedWhiskey, description)
             self.__whiskeyImageRepository.create(savedWhiskey, image)

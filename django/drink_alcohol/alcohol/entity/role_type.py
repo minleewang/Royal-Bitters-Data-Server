@@ -7,6 +7,7 @@ class RoleType(Enum):
     WHISKEY = "WHISKEY"
     WINE = "WINE"
 
+
     def __str__(self):
         return self.value
 

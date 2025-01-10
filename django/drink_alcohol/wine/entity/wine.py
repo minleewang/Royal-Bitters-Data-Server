@@ -6,7 +6,6 @@ from alcohol.entity.role_type import RoleType
 
 class Wine(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=32)
     alcohol = models.ForeignKey(
         Alcohol,
         on_delete=models.CASCADE,

@@ -8,7 +8,7 @@ class WineRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, title, type):
+    def create(self, wine):
         pass
 
     @abstractmethod
