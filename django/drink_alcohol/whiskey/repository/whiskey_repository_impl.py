@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
 
+from alcohol.entity.alcohol import Alcohol
 from alcohol.entity.role_type import RoleType
 from whiskey.entity import whiskey
 from whiskey.entity.whiskey import Whiskey
@@ -28,14 +29,16 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
         return cls.__instance
 
     # 여기서 페이지 네이션 동작 구현
-    def list(self, page=1, perPage=10): # perPage 몇개로 설정해야 하는지 몰라서 일단 10개
+    def list(self, page, perPage): # perPage 몇개로 설정해야 하는지 몰라서 일단 10개
 
         priceSubQuery = WhiskeyPrice.objects.filter(whiskey=OuterRef('pk')).values('price')[:1]
         imageSubQuery = WhiskeyImage.objects.filter(whiskey=OuterRef('pk')).values('image')[:1]
+        titleSubQuery = Alcohol.objects.filter(whiskey_alcohols=OuterRef('pk')).values('title')[:1]
 
         whiskeyList = Whiskey.objects.annotate(
             price=Coalesce(Subquery(priceSubQuery), Value(0)),
             image=Coalesce(Subquery(imageSubQuery), Value('')),
+            title=Coalesce(Subquery(titleSubQuery), Value(''))
         )
 
         paginator = Paginator(whiskeyList, perPage)

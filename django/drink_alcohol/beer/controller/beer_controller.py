@@ -79,13 +79,5 @@ class BeerController(viewsets.ViewSet):
 
             return JsonResponse(readBeer, status=200)
 
-        # e.g) 반환값: {
-        #     "id": 1,      ** id=1인 데이터 전부 불러와봐
-        #     "title": "Pale Ale",
-        #     "price": 5000,
-        #     "image": "pale_ale.jpg",
-        #     "description": "A refreshing ale."
-        # }
-
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)

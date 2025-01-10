@@ -20,10 +20,8 @@ class Wine(models.Model):
         app_label = 'wine'
 
     def __str__(self):
-        return f"Wine (id={self.id}, title={self.title})"
+        return f"Wine (id={self.id})"
 
-    def getId(self):
-        return self.id
+    def getAlcohol(self):
+        return self.alcohol
 
-    def getTitle(self):
-        return self.title

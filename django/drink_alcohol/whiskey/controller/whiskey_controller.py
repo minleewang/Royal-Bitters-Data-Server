@@ -19,6 +19,7 @@ class WhiskeyController(viewsets.ViewSet):
         page = int(getRequest.get("page", 1))
         perPage = int(getRequest.get("perPage", 8))
         paginatedWhiskeyList, totalPages = self.whiskeyService.requestList(page, perPage)
+        print(f"paginatedWhiskeyList: {paginatedWhiskeyList}")
 
         return JsonResponse({
             "dataList": paginatedWhiskeyList,

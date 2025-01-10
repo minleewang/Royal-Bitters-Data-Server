@@ -40,7 +40,7 @@ class WineServiceImpl(WineService):
     def createWineInfo(self, title, price, description, image):
         with transaction.atomic():
             # 이 부분은 가상의 형태를 표현한 것임
-            savedAlcohol = self.__alcoholRepository.create(title, price, 'WINE', image)
+            savedAlcohol = self.__alcoholRepository.create(title, price, type, image)
             # savedAlchol
             wine = Wine(alcohol=savedAlcohol)
             savedWine = self.__wineRepository.create(wine)
