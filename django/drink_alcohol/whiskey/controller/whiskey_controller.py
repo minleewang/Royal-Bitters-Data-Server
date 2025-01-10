@@ -32,10 +32,13 @@ class WhiskeyController(viewsets.ViewSet):
         whiskeyTitle = postRequest.get('whiskeyTitle')
         whiskeyPrice = postRequest.get('whiskeyPrice')
         whiskeyDescription = postRequest.get('whiskeyDescription')
+        alcohol_type = 'WHISKEY'
+
         print(f"whiskeyImage: {whiskeyImage}, "
               f"whiskeyTitle: {whiskeyTitle}, "
               f"whiskeyPrice: {whiskeyPrice}, "
-              f"whiskeyDescription: {whiskeyDescription},")
+              f"whiskeyDescription: {whiskeyDescription},"
+              f"AlcoholType: {alcohol_type}")
 
         if not all([whiskeyImage, whiskeyTitle, whiskeyPrice, whiskeyDescription]):
             return JsonResponse({"error": '모든 내용을 채워주세요!'}, status=status.HTTP_400_BAD_REQUEST)

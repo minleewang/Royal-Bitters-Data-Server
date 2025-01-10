@@ -31,10 +31,13 @@ class WineController(viewsets.ViewSet):
         wineTitle = postRequest.get('wineTitle')
         winePrice = postRequest.get('winePrice')
         wineDescription = postRequest.get('wineDescription')
+        alcohol_type = 'WINE'
+
         print(f"wineImage: {wineImage}, "
               f"wineTitle: {wineTitle}, "
               f"winePrice: {winePrice}, "
-              f"wineDescription: {wineDescription},")
+              f"wineDescription: {wineDescription},",
+              f"AlcoholType: {alcohol_type},")
 
         if not all([wineImage, wineTitle, winePrice, wineDescription]):
             return JsonResponse({"error": '모든 내용을 채워주세요!'}, status=status.HTTP_400_BAD_REQUEST)

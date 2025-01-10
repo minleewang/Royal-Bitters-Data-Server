@@ -62,11 +62,11 @@ class WineRepositoryImpl(WineRepository):
         return paiginatedWineList, paginator.num_pages
                                     # 데이터의 전체 항목을 페이지 크기로 나눈 뒤의 총 페이지 수를 반환
 
-
-    # Wine 테이블에서 create/ title 정보로 저장
-    def create(self, title, type):
-        return Wine.objects.create(title=title, type=type)
-
+        # Beer 테이블에서 create/ title 정보로 저장
+    def create(self, wine):
+        wine.save()
+        return wine
+        # 자동 저장
 
     # 검색 기능
     def findById(self, id):
@@ -74,7 +74,6 @@ class WineRepositoryImpl(WineRepository):
 
     def findAll(self):
         return Wine.objects.all()
-
 
 
     def letRoleTypeWine(self):

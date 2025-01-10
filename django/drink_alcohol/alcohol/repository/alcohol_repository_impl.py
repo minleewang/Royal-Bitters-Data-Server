@@ -69,4 +69,3 @@ class AlcoholRepositoryImpl(AlcoholRepository):
         alcoholPrice =  Alcohol.objects.get(id=id)
         return alcoholPrice.price
 
-

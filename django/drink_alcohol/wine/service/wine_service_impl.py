@@ -1,5 +1,7 @@
 from django.db import transaction
 
+from alcohol.repository.alcohol_repository_impl import AlcoholRepositoryImpl
+from wine.entity.wine import Wine
 from wine.repository.wine_description_repository_impl import WineDescriptionRepositoryImpl
 from wine.repository.wine_image_repository_impl import WineImageRepositoryImpl
 from wine.repository.wine_price_repository_impl import WinePriceRepositoryImpl
@@ -19,7 +21,7 @@ class WineServiceImpl(WineService):
             cls.__instance.__winePriceRepository = WinePriceRepositoryImpl.getInstance()
             cls.__instance.__wineDescriptionRepository = WineDescriptionRepositoryImpl.getInstance()
             cls.__instance.__wineImageRepository = WineImageRepositoryImpl.getInstance()
-
+            cls.__instance.__alcoholRepository =  AlcoholRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -37,7 +39,12 @@ class WineServiceImpl(WineService):
     # 상품의 전체 정보 등록하기
     def createWineInfo(self, title, price, description, image):
         with transaction.atomic():
-            savedWine = self.__wineRepository.create(title)
+            # 이 부분은 가상의 형태를 표현한 것임
+            savedAlcohol = self.__alcoholRepository.create(title, price, 'WINE', image)
+            # savedAlchol
+            wine = Wine(alcohol=savedAlcohol)
+            savedWine = self.__wineRepository.create(wine)
+
             self.__winePriceRepository.create(savedWine, price)
             self.__wineDescriptionRepository.create(savedWine, description)
             self.__wineImageRepository.create(savedWine, image)

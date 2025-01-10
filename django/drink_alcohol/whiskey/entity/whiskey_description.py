@@ -1,5 +1,4 @@
 from django.db import models
-
 from whiskey.entity.whiskey import Whiskey
 
 
