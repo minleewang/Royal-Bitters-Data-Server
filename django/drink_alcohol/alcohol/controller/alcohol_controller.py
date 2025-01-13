@@ -18,7 +18,8 @@ class AlcoholController(viewsets.ViewSet):
         getRequest = request.GET
         page = int(getRequest.get("page", 1))
         perPage = int(getRequest.get("perPage", 8))
-        paginatedAlcoholList, totalPages = self.alcoholService.requestList(page, perPage)
+        alcohol_type = getRequest.get("type", None)
+        paginatedAlcoholList, totalPages = self.alcoholService.requestList(page, perPage, alcohol_type)
         return JsonResponse({
             "dataList": paginatedAlcoholList,
             "totalPages": totalPages

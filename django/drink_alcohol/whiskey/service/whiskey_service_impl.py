@@ -51,7 +51,6 @@ class WhiskeyServiceImpl(WhiskeyService):
             self.__whiskeyImageRepository.create(savedWhiskey, image)
 
 
-
     def readWhiskeyInfo(self, id):
         with transaction.atomic():
 
@@ -71,8 +70,8 @@ class WhiskeyServiceImpl(WhiskeyService):
 
 
             readWhiskeyInfo = {
-                'id': foundWhiskey.getId(),
-                'title': foundWhiskey.getTitle(),
+                'id': foundWhiskey.alcohol.getAlcoholId(),
+                'title': foundWhiskey.alcohol.title,
                 'price': foundWhiskeyPrice.getPrice(),
                 'image': foundWhiskeyImage.getImage(),
                 'description': foundWhiskeyDescription.getDescription(),

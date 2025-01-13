@@ -23,5 +23,3 @@ class WhiskeyDescriptionRepositoryImpl(WhiskeyDescriptionRepository):
 
     def findByWhiskey(self, whiskey):
         return WhiskeyDescription.objects.get(whiskey=whiskey)
-
-
