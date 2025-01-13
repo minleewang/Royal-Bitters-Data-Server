@@ -4,7 +4,6 @@ from django.db.models.functions import Coalesce
 
 from alcohol.entity.alcohol import Alcohol
 from alcohol.entity.role_type import RoleType
-from whiskey.entity import whiskey
 from whiskey.entity.whiskey import Whiskey
 from whiskey.entity.whiskey_image import WhiskeyImage
 from whiskey.entity.whiskey_price import WhiskeyPrice
@@ -33,6 +32,7 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
 
         priceSubQuery = WhiskeyPrice.objects.filter(whiskey=OuterRef('pk')).values('price')[:1]
         imageSubQuery = WhiskeyImage.objects.filter(whiskey=OuterRef('pk')).values('image')[:1]
+        #titleSubQuery = Alcohol.objects.filter(whiskey_alcohols=OuterRef('pk')).values('title')[:1]
         titleSubQuery = Alcohol.objects.filter(whiskey_alcohols=OuterRef('pk')).values('title')[:1]
 
         whiskeyList = Whiskey.objects.annotate(
@@ -76,6 +76,7 @@ class WhiskeyRepositoryImpl(WhiskeyRepository):
     # 검색 기능
     def findById(self, id):
         return Whiskey.objects.get(id=id)
+
 
     def findAll(self):
         return Whiskey.objects.all()

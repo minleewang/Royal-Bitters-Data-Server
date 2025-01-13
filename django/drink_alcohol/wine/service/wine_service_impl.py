@@ -66,8 +66,8 @@ class WineServiceImpl(WineService):
 
 
             readWineInfo = {
-                'id': foundWine.getId(),
-                'title': foundWine.getTitle(),
+                'id': foundWine.alcohol.getAlcoholId(),
+                'title': foundWine.alcohol.title,
                 'price': foundWinePrice.getPrice(),
                 'image': foundWineImage.getImage(),
                 'description': foundWineDescription.getDescription(),

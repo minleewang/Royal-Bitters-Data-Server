@@ -62,14 +62,14 @@ class AlcoholServiceImpl(AlcoholService):
 
         if type == RoleType.WHISKEY.value:
             with transaction.atomic():
-                savedTypeWhiskey = self.__beerRepository.letRoleTypeWhiskey()
+                savedTypeWhiskey = self.__whiskeyRepository.letRoleTypeWhiskey()
                 savedWhiskey = self.__whiskeyRepository.create(title, savedTypeWhiskey)
                 self.__whiskeyPriceRepository.create(savedWhiskey, price)
                 self.__whiskeyImageRepository.create(savedWhiskey, image)
 
         if type == RoleType.WINE.value:
             with transaction.atomic():
-                savedTypeWine = self.__beerRepository.letRoleTypeWine()
+                savedTypeWine = self.__wineRepository.letRoleTypeWine()
                 savedWine = self.__wineRepository.create(title, savedTypeWine)
                 self.__winePriceRepository.create(savedWine, price)
                 self.__wineImageRepository.create(savedWine, image)
