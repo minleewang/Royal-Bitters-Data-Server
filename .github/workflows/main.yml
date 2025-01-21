@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ minleewang }}/backend-deploy-server:latest
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/backend-deploy-server:latest
 
 jobs:
   build:
@@ -54,7 +54,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${{ minleewang }}
+        username: ${{ github.actor }}
         password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Build and Push Docker Image
@@ -74,7 +74,7 @@ jobs:
           cd /home/ec2-user/mashed_potato/django/backend
           docker-compose down
 
-          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ minleewang }} --password-stdin
+          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker pull ${{ env.DOCKER_IMAGE }}
 
           docker image prune -f
